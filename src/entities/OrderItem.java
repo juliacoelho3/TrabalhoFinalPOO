@@ -8,6 +8,7 @@ public class OrderItem {
 	private Double unitValue;
 	private Integer quantity;
 	private Double descountValue;
+	private Product product;
 	
 	public OrderItem() {
 	}
@@ -51,6 +52,14 @@ public class OrderItem {
 	public void setDescountValue(Double descountValue) {
 		this.descountValue = descountValue;
 	}
+	
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
 
 	@Override
 	public int hashCode() {
@@ -67,5 +76,15 @@ public class OrderItem {
 			return false;
 		OrderItem other = (OrderItem) obj;
 		return Objects.equals(id, other.id);
+	}
+	
+	public void update(OrderItem orderItem) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void delete(Integer id) {
+		// TODO Auto-generated method stub
+		
 	}
 }

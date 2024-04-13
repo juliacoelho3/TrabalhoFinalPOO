@@ -2,7 +2,9 @@ package persistence;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import db.ConnectionFactory;
@@ -16,49 +18,61 @@ public class ProductDao {
 		connection = new ConnectionFactory().getConnection();
 	}
 
-	public void insert(Product product) {
-		String sql = "INSERT INTO produto "
-				+ "(descricao, vlcusto, vlvenda, categoria) "
-				+ "VALUES "
-				+ "(?, ?, ?, ?)";
+	public Product findById(Integer id) {
+		String sql = "SELECT * FROM produto "
+				+ "WHERE idproduto = ?";
 		
 		try {
 			PreparedStatement ps = connection.prepareStatement(sql);
-			ps.setString(1, product.getDescription());
-			ps.setDouble(2, product.getCostValue());
-			ps.setDouble(3, product.getSaleValue());
-			ps.setString(4, product.getCategory());
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
 			
-			ps.execute();
+			if(rs.next()) {
+				Product product = new Product(rs.getInt("idproduto"),
+						rs.getString("descricao"),
+						rs.getDouble("vlcusto"),
+						rs.getDouble("vlvenda"),
+						rs.getString("categoria"));
+				return product;
+			}
+			
+			rs.close();
 			ps.close();
-			connection.close();
+			connection.close();	
 		}
 		
 		catch (SQLException e) {
-			System.out.println("Erro ao inserir o registro de produto.");
+			System.out.println("Erro ao buscar o produto! ");
 			e.printStackTrace();
 		}
-		
-	}
-
-	public void update(Product product) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void delete(Integer id) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public Product findById(Integer id) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	public List<Product> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "SELECT * FROM produto";
+		List<Product> products = new ArrayList<>();
+		
+		try {
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				Product product = new Product(rs.getInt("idproduto"),
+						rs.getString("descricao"),
+						rs.getDouble("vlcusto"),
+						rs.getDouble("vlvenda"),
+						rs.getString("categoria"));
+				products.add(product);
+			}
+			rs.close();
+			ps.close();
+			connection.close();
+		}
+		catch (SQLException e) {
+			System.out.println("Erro ao buscar os produtos! ");
+			e.printStackTrace();
+		}
+		return products;
 	}
 
 
