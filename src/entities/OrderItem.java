@@ -8,17 +8,22 @@ public class OrderItem {
 	private Double unitValue;
 	private Integer quantity;
 	private Double descountValue;
+	
+	private Order order;
 	private Product product;
+	
 	
 	public OrderItem() {
 	}
 
-	public OrderItem(Integer id, Double unitValue, Integer quantity, Double descountValue) {
+	public OrderItem(Integer id, Double unitValue, Integer quantity, Double descountValue, Order order, Product product) {
 		super();
 		this.id = id;
 		this.unitValue = unitValue;
 		this.quantity = quantity;
 		this.descountValue = descountValue;
+		this.order = order;
+		this.product = product;
 	}
 
 	public Integer getId() {
@@ -51,6 +56,14 @@ public class OrderItem {
 
 	public void setDescountValue(Double descountValue) {
 		this.descountValue = descountValue;
+	}
+	
+	public Order getOrder() {
+		return order;
+	}
+
+	public void setProduct(Order order) {
+		this.order = order;
 	}
 	
 	public Product getProduct() {
