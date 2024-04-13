@@ -1,60 +1,49 @@
 package entities;
 
 public abstract class Person {
-	private int idPerson;
-	protected String nome;
-	protected String endereco;
-	protected String telefone;
+	
+	protected String name;
+	protected String address;
+	protected String phoneNumber;
 	
 	
-	public Person(int idPerson, String nome, String endereco, String telefone) {
+	
+
+	public Person(String name, String address, String phoneNumber) {
 		super();
-		this.idPerson = idPerson;
-		this.nome = nome;
-		this.endereco = endereco;
-		this.telefone = telefone;
+		this.name = name;
+		this.address = address;
+		this.phoneNumber = phoneNumber;
 	}
 
 
-	public int getIdPerson() {
-		return idPerson;
+	public String getName() {
+		return name;
 	}
 
 
-	public void setIdPerson(int idPerson) {
-		this.idPerson = idPerson;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 
-	public String getNome() {
-		return nome;
+	public String getAddress() {
+		return address;
 	}
 
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 
-	public String getEndereco() {
-		return endereco;
+	public String getPhoneNumber() {
+		return phoneNumber;
 	}
 
 
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
-
-
-	public String getTelefone() {
-		return telefone;
-	}
-
-
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
-	}
-	
-	
 
 }

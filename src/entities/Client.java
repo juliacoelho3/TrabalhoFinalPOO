@@ -4,21 +4,21 @@ import java.util.Date;
 
 public class Client extends Person {
 
-	public Client(int idPerson, String nome, String endereco, String telefone) {
-		super(idPerson, nome, endereco, telefone);
+	private int id;
+	private String cpf;
+	private Date birthDate;
+
+	public Client(String name, String address, String phoneNumber) {
+		super(name, address, phoneNumber);
 		// TODO Auto-generated constructor stub
 	}
 
-	private int idCliente;
-	private String cpf;
-	private Date dataNascimento;
-
-	public int getIdCliente() {
-		return idCliente;
+	public int getId() {
+		return id;
 	}
 
-	public void setIdCliente(int idCliente) {
-		this.idCliente = idCliente;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getCpf() {
@@ -29,12 +29,12 @@ public class Client extends Person {
 		this.cpf = cpf;
 	}
 
-	public Date getDataNascimento() {
-		return dataNascimento;
+	public Date getBirthDate() {
+		return birthDate;
 	}
 
-	public void setDataNascimento(Date dataNascimento) {
-		this.dataNascimento = dataNascimento;
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
 	}
-
-}
+	
+	}
