@@ -6,4 +6,5 @@
  *
  */
 module TrabalhoFinalPOO {
+	requires java.sql;
 }
