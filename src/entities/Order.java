@@ -10,6 +10,7 @@ public class Order {
 	private Instant deliveryDate;
 	private Double totalValue;
 	private String observation;
+	private Client client;
 
 	public Order() {
 	}

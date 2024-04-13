@@ -1,16 +1,21 @@
 package entities;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Client extends Person {
 
-	private int id;
+	private Integer id;
 	private String cpf;
 	private Date birthDate;
 
-	public Client(String name, String address, String phoneNumber) {
+	
+
+	public Client(String name, String address, String phoneNumber, Integer id, String cpf, Date birthDate) {
 		super(name, address, phoneNumber);
-		// TODO Auto-generated constructor stub
+		this.id = id;
+		this.cpf = cpf;
+		this.birthDate = birthDate;
 	}
 
 	public int getId() {
@@ -35,6 +40,23 @@ public class Client extends Person {
 
 	public void setBirthDate(Date birthDate) {
 		this.birthDate = birthDate;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(birthDate, cpf, id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Client other = (Client) obj;
+		return Objects.equals(birthDate, other.birthDate) && Objects.equals(cpf, other.cpf) && id == other.id;
 	}
 	
 	}
