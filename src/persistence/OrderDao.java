@@ -202,11 +202,16 @@ public class OrderDao {
 			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 				
-				Client client = new Client("Fixo", "Fixo", "Fixo", 1, "Fixo", null);
-				
-				 Order order = new Order(rs.getInt("idpedido"),
+				Client client = new Client(rs.getString("Client.idnome"), 
+						rs.getString("address"), 
+						rs.getString("phoneNumber"),
+					    rs.getInt("idcliente"),
+						rs.getString("cpf"), 
+						rs.getDate("birthdate"));
+	            
+	            
+			    Order order = new Order(rs.getInt("idpedido"),
 		                    rs.getDate("dtemissao"),
 		                    rs.getDate("dtentrega"),
 		                    rs.getDouble("valortotal"),
