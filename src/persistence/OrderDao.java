@@ -49,12 +49,12 @@ public class OrderDao {
 	}
 	
 	public void update(Order order) {
-		String sql = "UPDATE geral.pedido"
+		String sql = "UPDATE geral.pedido "
 				+ "SET dtemissao = ?, "
 				+ "dtentrega = ?, "
 				+ "valortotal = ?, "
 				+ "observacao = ?, "
-				+ "idcliente = ?, "
+				+ "idcliente = ? "
 				+ "WHERE idpedido = ?";
 		
 		try {
@@ -97,7 +97,7 @@ public class OrderDao {
 	}
 	public Order findById(Integer id) {
 		String sql = "SELECT * FROM geral.pedido "
-				+ "WHERE idproduto = ?";
+				+ "WHERE idpedido = ?";
 		
 		try {
 			PreparedStatement ps = connection.prepareStatement(sql);
@@ -197,7 +197,7 @@ public class OrderDao {
 	public List<Order> findAll() {
 	    List<Order> orders = new ArrayList<>();
 	    String sql = "SELECT "
-	                + "Cliente.idcliente"
+	                + "Cliente.idcliente, "
 	                + "Cliente.nome, "
 	                + "Cliente.endereco, "
 	                + "Cliente.telefone, "
@@ -208,26 +208,26 @@ public class OrderDao {
 	                + "Pedido.dtentrega, "
 	                + "Pedido.valortotal, "
 	                + "Pedido.observacao "
-	                + "FROM Pedido "
-	                + "INNER JOIN Cliente ON Pedido.idcliente = Cliente.idcliente ";
+	                + "FROM geral.Pedido "
+	                + "INNER JOIN geral.Cliente ON Pedido.idcliente = Cliente.idcliente ";
 	                
 	    try {
 	        PreparedStatement ps = connection.prepareStatement(sql);
 	        ResultSet rs = ps.executeQuery();
 	        
 	        while (rs.next()) {
-	            Client client = new Client(rs.getString("Cliente.nome"),
-	                   rs.getString("Cliente.endereco"),
-	                   rs.getString("Cliente.telefone"),
-	                   rs.getInt("Cliente.idcliente"),
-	                   rs.getString("Cliente.cpf"),
-	                   rs.getDate("Cliente.dtnascimento"));
+	            Client client = new Client(rs.getString("nome"),
+	                   rs.getString("endereco"),
+	                   rs.getString("telefone"),
+	                   rs.getInt("idcliente"),
+	                   rs.getString("cpf"),
+	                   rs.getDate("dtnascimento"));
 
-	            Order order = new Order(rs.getInt("Pedido.idpedido"),
-	                   rs.getDate("Pedido.dtemissao"),
-	                   rs.getDate("Pedido.dtentrega"),
-	                   rs.getDouble("Pedido.valortotal"),
-	                   rs.getString("Pedido.observacao"),
+	            Order order = new Order(rs.getInt("idpedido"),
+	                   rs.getDate("dtemissao"),
+	                   rs.getDate("dtentrega"),
+	                   rs.getDouble("valortotal"),
+	                   rs.getString("observacao"),
 	                   client);
 	            	
 	            orders.add(order);

@@ -17,7 +17,7 @@ public class Menu {
 	static Scanner sc = new Scanner(System.in);
 	
 	public static String menuInicial() {
-		return "###############################"
+		return "\n###############################"
 				+ "\n#        MENU INICIAL         #"
 				+ "\n###############################"
 				+ "\n"
@@ -50,11 +50,11 @@ public class Menu {
 		Date deliveryDate = sdf.parse(sc.next());
 		System.out.print("Informe o valor total do pedido: ");
 		Double totalValue = sc.nextDouble();
-		System.out.println("Informe uma observação sobre o pedido:");
+		System.out.print("Informe uma observação sobre o pedido: ");
 		sc.nextLine();
 		String observation = sc.nextLine();
 		
-		System.out.println("Informe o código do cliente:");
+		System.out.print("Informe o código do cliente: ");
 		Integer idclient = sc.nextInt();
 		ClientDao clientDao = new ClientDao();
 		Client c = clientDao.findById(idclient);
@@ -97,6 +97,7 @@ public class Menu {
 		
 		OrderDao dao = new OrderDao();
 		dao.delete(id);
+		System.out.println("Pedido excluído com sucesso!");
 	}
 	
 	public static void editarPedido() throws ParseException {
@@ -112,11 +113,11 @@ public class Menu {
 		Date deliveryDate = sdf.parse(sc.next());
 		System.out.print("Informe o valor total do pedido: ");
 		Double totalValue = sc.nextDouble();
-		System.out.println("Informe uma observação sobre o pedido:");
+		System.out.print("Informe uma observação sobre o pedido: ");
 		sc.nextLine();
 		String observation = sc.nextLine();
 		
-		System.out.println("Informe o código do cliente:");
+		System.out.print("Informe o código do cliente: ");
 		Integer idclient = sc.nextInt();
 		ClientDao clientDao = new ClientDao();
 		Client c = clientDao.findById(idclient);
@@ -134,7 +135,9 @@ public class Menu {
 		
 		System.out.println("Pedido editado com sucesso.");
 		
-		System.out.println("Novas informações: " + orderDao.findById(id));
+		Order updatedOrder = orderDao.findById(id);
+		
+		System.out.println("Novas informações: " + updatedOrder);
 	}
 	
 
