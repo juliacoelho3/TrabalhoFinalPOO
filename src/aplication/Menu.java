@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
+import entities.Client;
 import entities.Order;
 import persistence.OrderDao;
 
@@ -52,11 +53,29 @@ public class Menu {
 		sc.nextLine();
 		String observation = sc.nextLine();
 		
+		// Cliente fixo mockado, ajustar posteriormente
+		Client client = new Client("Fixo", "Fixo", "Fixo", 1, "Fixo", new Date());
+		
 		Order order = new Order(null, issueDate, deliveryDate, totalValue, observation);
 		OrderDao dao = new OrderDao();
 		dao.insert(order);
 		
 		System.out.println("Pedido incluído com sucesso.");
+	}
+	
+	public static void digiteParaContinuar() {
+		System.out.print("\nPressione ENTER para continuar: ");
+		sc.nextLine();
+	}
+	
+	public static void imprimirPedidos() {
+		System.out.println("###############################"
+				+ "\n#       LISTA DE PEDIDOS      #"
+				+ "\n###############################");
+		OrderDao dao = new OrderDao();
+		for (Order o : dao.findAll()) {
+			System.out.println(o);
+		}
 	}
 	
 

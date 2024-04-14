@@ -100,5 +100,21 @@ public class Order {
 		return Objects.equals(id, other.id);
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "Código: "
+				+ id
+				+ " | Data do pedido: "
+				+ issueDate
+				+ " | Data de entrega: "
+				+ deliveryDate
+				+ " | Valor total: "
+				+ totalValue
+				+ " | Observação: "
+				+ observation
+				+ " | Cliente: "
+				+ client.getId()
+				+ " - "
+				+ client.getName();
+	}
 }

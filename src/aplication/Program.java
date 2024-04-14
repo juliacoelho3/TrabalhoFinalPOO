@@ -10,7 +10,6 @@ public class Program {
 		Scanner sc = new Scanner(System.in);
 		
 		int opcao = 0;
-		int opcao2 = 0;
 		
 		while(opcao != 7) {
 			switch (opcao) {
@@ -19,10 +18,14 @@ public class Program {
 				opcao = sc.nextInt();
 				break;
 			case 1:
-				System.out.println("Não implementado");
+				Menu.imprimirPedidos();
+				Menu.digiteParaContinuar();
+				opcao = 0;
 				break;
 			case 2:
 				Menu.novoPedido();
+				Menu.digiteParaContinuar();
+				opcao = 0;
 				break;
 			case 7:
 				System.out.println("Saindo do sistema.");
