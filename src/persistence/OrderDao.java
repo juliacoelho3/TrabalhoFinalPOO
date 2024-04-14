@@ -197,32 +197,31 @@ public class OrderDao {
 	public List<Order> findAll() {
 	    List<Order> orders = new ArrayList<>();
 	    String sql = "SELECT "
-	                + "Cliente.idnome, "
-	                + "Cliente.address, "
-	                + "Cliente.phoneNumber, "
-	                + "Cliente.idcliente, "
+	                + "Cliente.idcliente"
+	                + "Cliente.nome, "
+	                + "Cliente.endereco, "
+	                + "Cliente.telefone, "
+	                + "Cliente.dtnascimento, "
 	                + "Cliente.cpf, "
-	                + "Cliente.birthdate, "
 	                + "Pedido.idpedido, "
 	                + "Pedido.dtemissao, "
 	                + "Pedido.dtentrega, "
 	                + "Pedido.valortotal, "
 	                + "Pedido.observacao "
 	                + "FROM Pedido "
-	                + "INNER JOIN Cliente ON Pedido.idcliente = Cliente.idcliente "
-	                + "WHERE Pedido.idpedido = ?";
+	                + "INNER JOIN Cliente ON Pedido.idcliente = Cliente.idcliente ";
 	                
 	    try {
 	        PreparedStatement ps = connection.prepareStatement(sql);
 	        ResultSet rs = ps.executeQuery();
 	        
 	        while (rs.next()) {
-	            Client client = new Client(rs.getString("Cliente.idnome"),
-	                   rs.getString("Cliente.address"),
-	                   rs.getString("Cliente.phoneNumber"),
+	            Client client = new Client(rs.getString("Cliente.nome"),
+	                   rs.getString("Cliente.endereco"),
+	                   rs.getString("Cliente.telefone"),
 	                   rs.getInt("Cliente.idcliente"),
 	                   rs.getString("Cliente.cpf"),
-	                   rs.getDate("Cliente.birthdate"));
+	                   rs.getDate("Cliente.dtnascimento"));
 
 	            Order order = new Order(rs.getInt("Pedido.idpedido"),
 	                   rs.getDate("Pedido.dtemissao"),
@@ -233,13 +232,16 @@ public class OrderDao {
 	            	
 	            orders.add(order);
 	        }
+	        
 	        rs.close();
 	        ps.close();
 	        connection.close();
+	        
 	    } catch (SQLException e) {
 	        System.out.println("Erro ao buscar os produtos! ");
 	        e.printStackTrace();
 	    }
+	    
 	    return orders;
 	}
 

@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import entities.Client;
 import entities.Order;
+import persistence.ClientDao;
 import persistence.OrderDao;
 
 public class Menu {
@@ -53,12 +54,21 @@ public class Menu {
 		sc.nextLine();
 		String observation = sc.nextLine();
 		
-		// Cliente fixo mockado, ajustar posteriormente
-		Client client = new Client("Fixo", "Fixo", "Fixo", 1, "Fixo", new Date());
+		System.out.println("Informe o código do cliente:");
+		Integer idclient = sc.nextInt();
+		ClientDao clientDao = new ClientDao();
+		Client c = clientDao.findById(idclient);
+		
+		Client client = new Client(c.getName(),
+				c.getAddress(),
+				c.getPhoneNumber(),
+				c.getId(),
+				c.getCpf(),
+				c.getBirthDate());
 		
 		Order order = new Order(null, issueDate, deliveryDate, totalValue, observation, client);
-		OrderDao dao = new OrderDao();
-		dao.insert(order);
+		OrderDao orderDao = new OrderDao();
+		orderDao.insert(order);
 		
 		System.out.println("Pedido incluído com sucesso.");
 	}
@@ -106,16 +116,25 @@ public class Menu {
 		sc.nextLine();
 		String observation = sc.nextLine();
 		
-		// Cliente fixo mockado, ajustar posteriormente
-		Client client = new Client("Fixo", "Fixo", "Fixo", 1, "Fixo", new Date());
+		System.out.println("Informe o código do cliente:");
+		Integer idclient = sc.nextInt();
+		ClientDao clientDao = new ClientDao();
+		Client c = clientDao.findById(idclient);
+		
+		Client client = new Client(c.getName(),
+				c.getAddress(),
+				c.getPhoneNumber(),
+				c.getId(),
+				c.getCpf(),
+				c.getBirthDate());
 		
 		Order order = new Order(id, issueDate, deliveryDate, totalValue, observation, client);
-		OrderDao dao = new OrderDao();
-		dao.update(order);
+		OrderDao orderDao = new OrderDao();
+		orderDao.update(order);
 		
 		System.out.println("Pedido editado com sucesso.");
 		
-		System.out.println("Novas informações: " + dao.findById(id));
+		System.out.println("Novas informações: " + orderDao.findById(id));
 	}
 	
 

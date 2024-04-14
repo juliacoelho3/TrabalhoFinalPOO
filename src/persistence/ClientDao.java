@@ -19,7 +19,8 @@ public class ClientDao {
 	}
 
 	public Client findById(Integer id) {
-		String sql = "SELECT * FROM cliente " + "WHERE idcliente = ?";
+		String sql = "SELECT * FROM geral.cliente "
+				+ "WHERE idcliente = ?";
 
 		try {
 			PreparedStatement ps = connection.prepareStatement(sql);
@@ -27,12 +28,12 @@ public class ClientDao {
 			ResultSet rs = ps.executeQuery();
 
 			if (rs.next()) {
-				Client client = new Client(rs.getString("name"), 
-						rs.getString("address"), 
-						rs.getString("phoneNumber"),
+				Client client = new Client(rs.getString("nome"), 
+						rs.getString("endereco"), 
+						rs.getString("telefone"),
 						rs.getInt("idcliente"), 
 						rs.getString("cpf"),
-					    rs.getDate("birthdate"));
+					    rs.getDate("dtnascimento"));
 				
 				rs.close();
 				ps.close();
