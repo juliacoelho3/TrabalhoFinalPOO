@@ -5,10 +5,12 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import db.ConnectionFactory;
+import entities.Client;
 import entities.Order;
 
 
@@ -47,7 +49,7 @@ public class OrderDao {
 	}
 	
 	public void update(Order order) {
-		String sql = "UPDATE pedido"
+		String sql = "UPDATE geral.pedido"
 				+ "SET idpedido = ?, "
 				+ "dtemissao = ?, "
 				+ "dtentrega = ?, "
@@ -57,8 +59,8 @@ public class OrderDao {
 		try {
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.setInt(1, order.getId());
-			ps.setDate(2, (Date) order.getIssueDate());
-			ps.setDate(3, (Date) order.getDeliveryDate());
+			ps.setDate(2, new java.sql.Date(order.getIssueDate().getTime()));
+			ps.setDate(3, new java.sql.Date(order.getDeliveryDate().getTime()));
 			ps.setDouble(4, order.getTotalValue());
 			ps.setString(5, order.getObservation());
 			ps.setInt(6, order.getClient().getId());
@@ -75,7 +77,7 @@ public class OrderDao {
 	}
 	
 	public void delete(Integer id) {
-		String sql = "DELETE FROM pedido "
+		String sql = "DELETE FROM geral.pedido "
 				+ "WHERE idpedido = ?";
 		
 		try {
@@ -93,7 +95,7 @@ public class OrderDao {
 		}
 	}
 	public Order findById(Integer id) {
-		String sql = "SELECT * FROM produto "
+		String sql = "SELECT * FROM geral.pedido "
 				+ "WHERE idproduto = ?";
 		
 		try {
@@ -125,11 +127,11 @@ public class OrderDao {
 	public List<Order> findByName(String name, int search) {
 	    String sql;
 	    if (search == 1) {
-	        sql = "select * from cliente where nome like '" + name + "%'";
+	        sql = "select * from geral.cliente where nome like '" + name + "%'";
 	    } else if (search == 2) {
-	        sql = "select * from cliente where nome like '%" + name + "'";
+	        sql = "select * from geral.cliente where nome like '%" + name + "'";
 	    } else {
-	        sql = "select * from cliente where nome like '%" + name + "%'";
+	        sql = "select * from geral.cliente where nome like '%" + name + "%'";
 	    }
 
 	    List<Order> orders = new ArrayList<>();
@@ -160,7 +162,7 @@ public class OrderDao {
 	}
 	
 	public List<Order> findByDate(Date startDate, Date endDate) {
-	    String sql = "SELECT * FROM pedido WHERE dtemissao BETWEEN ? AND ?";
+	    String sql = "SELECT * FROM geral.pedido WHERE geral.dtemissao BETWEEN ? AND ?";
 	    
 	    List<Order> orders = new ArrayList<>();
 
@@ -192,7 +194,7 @@ public class OrderDao {
 	}
 	
 	public List<Order> findAll() {
-		String sql = "SELECT * FROM produto";
+		String sql = "SELECT * FROM geral.pedido";
 		List<Order> orders = new ArrayList<>();
 		
 		try {
@@ -200,11 +202,16 @@ public class OrderDao {
 			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next()) {
+				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+				
+				Client client = new Client("Fixo", "Fixo", "Fixo", 1, "Fixo", null);
+				
 				 Order order = new Order(rs.getInt("idpedido"),
 		                    rs.getDate("dtemissao"),
 		                    rs.getDate("dtentrega"),
 		                    rs.getDouble("valortotal"),
-		                    rs.getString("observacao"));
+		                    rs.getString("observacao"),
+		                    client);
 				orders.add(order);
 			}
 			rs.close();

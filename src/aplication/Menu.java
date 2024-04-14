@@ -56,7 +56,7 @@ public class Menu {
 		// Cliente fixo mockado, ajustar posteriormente
 		Client client = new Client("Fixo", "Fixo", "Fixo", 1, "Fixo", new Date());
 		
-		Order order = new Order(null, issueDate, deliveryDate, totalValue, observation);
+		Order order = new Order(null, issueDate, deliveryDate, totalValue, observation, client);
 		OrderDao dao = new OrderDao();
 		dao.insert(order);
 		
