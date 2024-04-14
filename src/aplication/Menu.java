@@ -78,5 +78,45 @@ public class Menu {
 		}
 	}
 	
+	public static void excluirPedido() {
+		System.out.println("###############################"
+				+ "\n#       EXCLUIR PEDIDO        #"
+				+ "\n###############################");
+		System.out.print("Digite o código do pedido: ");
+		Integer id = sc.nextInt();
+		
+		OrderDao dao = new OrderDao();
+		dao.delete(id);
+	}
+	
+	public static void editarPedido() throws ParseException {
+		System.out.println("###############################"
+				+ "\n#        EDITAR PEDIDO        #"
+				+ "\n###############################");
+		System.out.print("Digite o código do pedido: ");
+		Integer id = sc.nextInt();
+		
+		System.out.print("Informe a data do pedido: ");
+		Date issueDate = sdf.parse(sc.next());
+		System.out.print("Informe a data de entrega do pedido: ");
+		Date deliveryDate = sdf.parse(sc.next());
+		System.out.print("Informe o valor total do pedido: ");
+		Double totalValue = sc.nextDouble();
+		System.out.println("Informe uma observação sobre o pedido:");
+		sc.nextLine();
+		String observation = sc.nextLine();
+		
+		// Cliente fixo mockado, ajustar posteriormente
+		Client client = new Client("Fixo", "Fixo", "Fixo", 1, "Fixo", new Date());
+		
+		Order order = new Order(id, issueDate, deliveryDate, totalValue, observation, client);
+		OrderDao dao = new OrderDao();
+		dao.update(order);
+		
+		System.out.println("Pedido editado com sucesso.");
+		
+		System.out.println("Novas informações: " + dao.findById(id));
+	}
+	
 
 }

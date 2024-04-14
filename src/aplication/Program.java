@@ -27,11 +27,20 @@ public class Program {
 				Menu.digiteParaContinuar();
 				opcao = 0;
 				break;
+			case 3:
+				Menu.editarPedido();
+				Menu.digiteParaContinuar();
+				opcao = 0;
+				break;
+			case 4:
+				Menu.excluirPedido();
+				Menu.digiteParaContinuar();
+				opcao = 0;
+				break;
 			case 7:
-				System.out.println("Saindo do sistema.");
+				System.out.println("Saindo do sistema...");
 			default:
-				System.out.println("Valor inválido.");
-				
+				System.out.println("Valor inválido! Digite outro valor.");
 			}
 		}		
 		

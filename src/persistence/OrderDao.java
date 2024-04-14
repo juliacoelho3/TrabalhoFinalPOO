@@ -50,20 +50,21 @@ public class OrderDao {
 	
 	public void update(Order order) {
 		String sql = "UPDATE geral.pedido"
-				+ "SET idpedido = ?, "
-				+ "dtemissao = ?, "
+				+ "SET dtemissao = ?, "
 				+ "dtentrega = ?, "
 				+ "valortotal = ?, "
-				+ "observacao = ?, ";
+				+ "observacao = ?, "
+				+ "idcliente = ?, "
+				+ "WHERE idpedido = ?";
 		
 		try {
 			PreparedStatement ps = connection.prepareStatement(sql);
-			ps.setInt(1, order.getId());
-			ps.setDate(2, new java.sql.Date(order.getIssueDate().getTime()));
-			ps.setDate(3, new java.sql.Date(order.getDeliveryDate().getTime()));
-			ps.setDouble(4, order.getTotalValue());
-			ps.setString(5, order.getObservation());
-			ps.setInt(6, order.getClient().getId());
+			ps.setDate(1, new java.sql.Date(order.getIssueDate().getTime()));
+			ps.setDate(2, new java.sql.Date(order.getDeliveryDate().getTime()));
+			ps.setDouble(3, order.getTotalValue());
+			ps.setString(4, order.getObservation());
+			ps.setInt(5, order.getClient().getId());
+			ps.setInt(6, order.getId());
 			
 			ps.execute();
 			ps.close();
