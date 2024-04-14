@@ -5,13 +5,13 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import db.ConnectionFactory;
 import entities.Client;
 import entities.Order;
+
 
 
 
@@ -195,40 +195,52 @@ public class OrderDao {
 	}
 	
 	public List<Order> findAll() {
-		String sql = "SELECT * FROM geral.pedido";
-		List<Order> orders = new ArrayList<>();
-		
-		try {
-			PreparedStatement ps = connection.prepareStatement(sql);
-			ResultSet rs = ps.executeQuery();
-			
-			while(rs.next()) {
-				
-				Client client = new Client(rs.getString("Client.idnome"), 
-						rs.getString("address"), 
-						rs.getString("phoneNumber"),
-					    rs.getInt("idcliente"),
-						rs.getString("cpf"), 
-						rs.getDate("birthdate"));
-	            
-	            
-			    Order order = new Order(rs.getInt("idpedido"),
-		                    rs.getDate("dtemissao"),
-		                    rs.getDate("dtentrega"),
-		                    rs.getDouble("valortotal"),
-		                    rs.getString("observacao"),
-		                    client);
-				orders.add(order);
-			}
-			rs.close();
-			ps.close();
-			connection.close();
-		}
-		catch (SQLException e) {
-			System.out.println("Erro ao buscar os produtos! ");
-			e.printStackTrace();
-		}
-		return orders;
+	    List<Order> orders = new ArrayList<>();
+	    String sql = "SELECT "
+	                + "Cliente.idnome, "
+	                + "Cliente.address, "
+	                + "Cliente.phoneNumber, "
+	                + "Cliente.idcliente, "
+	                + "Cliente.cpf, "
+	                + "Cliente.birthdate, "
+	                + "Pedido.idpedido, "
+	                + "Pedido.dtemissao, "
+	                + "Pedido.dtentrega, "
+	                + "Pedido.valortotal, "
+	                + "Pedido.observacao "
+	                + "FROM Pedido "
+	                + "INNER JOIN Cliente ON Pedido.idcliente = Cliente.idcliente "
+	                + "WHERE Pedido.idpedido = ?";
+	                
+	    try {
+	        PreparedStatement ps = connection.prepareStatement(sql);
+	        ResultSet rs = ps.executeQuery();
+	        
+	        while (rs.next()) {
+	            Client client = new Client(rs.getString("Cliente.idnome"),
+	                   rs.getString("Cliente.address"),
+	                   rs.getString("Cliente.phoneNumber"),
+	                   rs.getInt("Cliente.idcliente"),
+	                   rs.getString("Cliente.cpf"),
+	                   rs.getDate("Cliente.birthdate"));
+
+	            Order order = new Order(rs.getInt("Pedido.idpedido"),
+	                   rs.getDate("Pedido.dtemissao"),
+	                   rs.getDate("Pedido.dtentrega"),
+	                   rs.getDouble("Pedido.valortotal"),
+	                   rs.getString("Pedido.observacao"),
+	                   client);
+	            	
+	            orders.add(order);
+	        }
+	        rs.close();
+	        ps.close();
+	        connection.close();
+	    } catch (SQLException e) {
+	        System.out.println("Erro ao buscar os produtos! ");
+	        e.printStackTrace();
+	    }
+	    return orders;
 	}
 
 }
