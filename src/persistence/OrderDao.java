@@ -9,9 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import db.ConnectionFactory;
-import entities.Client;
 import entities.Order;
-import entities.Product;
+
 
 
 
