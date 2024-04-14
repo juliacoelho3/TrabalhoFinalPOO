@@ -28,11 +28,11 @@ public class ClientDao {
 
 			if (rs.next()) {
 				Client client = new Client(rs.getString("name"), 
-										   rs.getString("address"), 
-										   rs.getString("phoneNumber"),
-										   rs.getInt("idcliente"), 
-										   rs.getString("cpf"),
-										   rs.getDate("birthdate"));
+						rs.getString("address"), 
+						rs.getString("phoneNumber"),
+						rs.getInt("idcliente"), 
+						rs.getString("cpf"),
+					    rs.getDate("birthdate"));
 				
 				rs.close();
 				ps.close();
@@ -43,6 +43,7 @@ public class ClientDao {
 			rs.close();
 			ps.close();
 			connection.close();
+			
 		} catch (SQLException e) {
 			System.out.println("Erro ao buscar cliente! ");
 			e.printStackTrace();
@@ -86,9 +87,9 @@ public class ClientDao {
 		return clientes;
 	}
 	
-	public List<Client> listarClientes() {
+	public List<Client> findAll() {
 	    String sql = "select * from cliente";
-	    List<Client> clientes = new ArrayList<>();
+	    List<Client> clients = new ArrayList<>();
 	    try {
 	        PreparedStatement stmt = connection.prepareStatement(sql);
 	        ResultSet rs = stmt.executeQuery();
@@ -99,7 +100,7 @@ public class ClientDao {
 					    rs.getInt("idcliente"),
 						rs.getString("cpf"), 
 						rs.getDate("birthdate"));
-	            clientes.add(client);
+	            clients.add(client);
 	        }
 	        
 	        stmt.close();
@@ -110,7 +111,7 @@ public class ClientDao {
 	        System.out.println("Erro ao listar clientes!");
 	        e.printStackTrace();
 	    }
-	    return clientes;
+	    return clients;
 	}
 
 

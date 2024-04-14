@@ -24,7 +24,7 @@ public class Menu {
 				+ "\n3 - EDITAR PEDIDO"
 				+ "\n4 - EXCLUIR PEDIDO"
 				+ "\n"
-				+ "\nDIGITE O VALOR DESEJADO:";
+				+ "\nDIGITE O VALOR DESEJADO: ";
 	}
 	
 	public static String subMenuTipoVisualizacaoPedido() {

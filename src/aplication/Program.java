@@ -12,22 +12,25 @@ public class Program {
 		int opcao = 0;
 		int opcao2 = 0;
 		
-		switch (opcao) {
-		case 0:
-			System.out.println(Menu.menuInicial());
-			opcao = sc.nextInt();
-			break;
-		case 1:
-			System.out.println("Não implementado");
-			break;
-		case 2:
-			Menu.novoPedido();
-		default:
-			System.out.println("Valor inválido.");
-			
-		}
-		
-		
+		while(opcao != 7) {
+			switch (opcao) {
+			case 0:
+				System.out.print(Menu.menuInicial());
+				opcao = sc.nextInt();
+				break;
+			case 1:
+				System.out.println("Não implementado");
+				break;
+			case 2:
+				Menu.novoPedido();
+				break;
+			case 7:
+				System.out.println("Saindo do sistema.");
+			default:
+				System.out.println("Valor inválido.");
+				
+			}
+		}		
 		
 		sc.close();
 	}
