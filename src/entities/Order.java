@@ -102,7 +102,7 @@ public class Order {
 	
 	@Override
 	public String toString() {
-		return "Código: "
+		return "# Código: "
 				+ id
 				+ " | Data do pedido: "
 				+ issueDate
@@ -112,7 +112,7 @@ public class Order {
 				+ totalValue
 				+ " | Observação: "
 				+ observation
-				+ " | Cliente: "
+				+ "\nCliente: "
 				+ client.getId()
 				+ " - "
 				+ client.getName();

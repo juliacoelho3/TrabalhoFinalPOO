@@ -105,7 +105,7 @@ public class Menu {
 				+ "? (S/N): ");
 				confirmaProduto = sc.next().charAt(0);
 				
-				if(confirmaProduto != 'S' || confirmaProduto != 's') {
+				if(confirmaProduto == 'S' || confirmaProduto == 's') {
 					System.out.print("Informe a quantidade do produto: ");
 					Integer quantity = sc.nextInt();
 					System.out.print("Informe o valor de desconto: ");
