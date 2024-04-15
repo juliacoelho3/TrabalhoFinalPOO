@@ -7,8 +7,12 @@ import java.util.Scanner;
 
 import entities.Client;
 import entities.Order;
+import entities.OrderItem;
+import entities.Product;
 import persistence.ClientDao;
 import persistence.OrderDao;
+import persistence.OrderItemDao;
+import persistence.ProductDao;
 
 public class Menu {
 	
@@ -40,6 +44,21 @@ public class Menu {
 				+ "\n3 - EXIBIR TODOS OS PEDIDOS";
 	}
 	
+	public static void digiteParaContinuar() {
+		System.out.print("\nPressione ENTER para continuar: ");
+		sc.nextLine();
+	}
+	
+	public static void imprimirPedidos() {
+		System.out.println("###############################"
+				+ "\n#       LISTA DE PEDIDOS      #"
+				+ "\n###############################");
+		OrderDao dao = new OrderDao();
+		for (Order o : dao.findAll()) {
+			System.out.println(o);
+		}
+	}
+	
 	public static void novoPedido() throws ParseException {
 		System.out.println("###############################"
 				+ "\n#         NOVO PEDIDO         #"
@@ -69,35 +88,46 @@ public class Menu {
 		Order order = new Order(null, issueDate, deliveryDate, totalValue, observation, client);
 		OrderDao orderDao = new OrderDao();
 		orderDao.insert(order);
+
+		char adcProduto = 'S';
+		
+		while(adcProduto == 'S' || adcProduto == 's') {
+			char confirmaProduto = 'N';
+			System.out.print("Informe o código do produto: ");
+			Integer productId = sc.nextInt();
+			
+			while(confirmaProduto != 'S' || confirmaProduto != 's') {
+				ProductDao productDao = new ProductDao();
+				productDao.findById(productId);
+				Product product = productDao.findById(productId);
+				System.out.print("Confirma a inclusão do produto "
+				+ product.getDescription()
+				+ "? (S/N): ");
+				confirmaProduto = sc.next().charAt(0);
+				
+				if(confirmaProduto == 'S') {
+					System.out.print("Informe a quantidade do produto: ");
+					Integer quantity = sc.nextInt();
+					System.out.print("Informe o valor de desconto: ");
+					Double descountValue = sc.nextDouble();
+					
+					OrderItem orderItem = new OrderItem(null, 
+							product.getSaleValue(),
+							quantity,
+							descountValue,
+							order,
+							product);
+					
+					OrderItemDao orderItemDao = new OrderItemDao();
+					orderItemDao.insert(orderItem);
+				}
+			}
+			
+			System.out.print("Deseja adicionar um novo produto? (S/N): ");
+			adcProduto = sc.next().charAt(0);
+		}
 		
 		System.out.println("Pedido incluído com sucesso.");
-	}
-	
-	public static void digiteParaContinuar() {
-		System.out.print("\nPressione ENTER para continuar: ");
-		sc.nextLine();
-	}
-	
-	public static void imprimirPedidos() {
-		System.out.println("###############################"
-				+ "\n#       LISTA DE PEDIDOS      #"
-				+ "\n###############################");
-		OrderDao dao = new OrderDao();
-		for (Order o : dao.findAll()) {
-			System.out.println(o);
-		}
-	}
-	
-	public static void excluirPedido() {
-		System.out.println("###############################"
-				+ "\n#       EXCLUIR PEDIDO        #"
-				+ "\n###############################");
-		System.out.print("Digite o código do pedido: ");
-		Integer id = sc.nextInt();
-		
-		OrderDao dao = new OrderDao();
-		dao.delete(id);
-		System.out.println("Pedido excluído com sucesso!");
 	}
 	
 	public static void editarPedido() throws ParseException {
@@ -138,6 +168,18 @@ public class Menu {
 		Order updatedOrder = orderDao.findById(id);
 		
 		System.out.println("Novas informações: " + updatedOrder);
+	}
+	
+	public static void excluirPedido() {
+		System.out.println("###############################"
+				+ "\n#       EXCLUIR PEDIDO        #"
+				+ "\n###############################");
+		System.out.print("Digite o código do pedido: ");
+		Integer id = sc.nextInt();
+		
+		OrderDao dao = new OrderDao();
+		dao.delete(id);
+		System.out.println("Pedido excluído com sucesso!");
 	}
 	
 

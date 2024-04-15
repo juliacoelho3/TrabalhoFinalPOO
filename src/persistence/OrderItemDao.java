@@ -21,7 +21,7 @@ public class OrderItemDao {
 	}
 	
 	public void insert(OrderItem orderItem) {
-		String sql = "INSERT INTO pedidoitens "
+		String sql = "INSERT INTO geral.pedidoitens "
 				+ "(idpedidoitem, vlunitario, qtproduto, vldesconto, idpedido, idproduto) "
 				+ "VALUES "
 				+ "(?, ?, ?, ?, ?)";
@@ -47,7 +47,7 @@ public class OrderItemDao {
 	}
 	
 	public void update(OrderItem orderItem) {
-		String sql = "UPDATE pedidoitens "
+		String sql = "UPDATE geral.pedidoitens "
 				+ "SET idpedidoitem = ?, "
 				+ "vlunitario = ?, "
 				+ "qtproduto = ?, "
@@ -76,7 +76,7 @@ public class OrderItemDao {
 	}
 	
 	public void delete(Integer id) {
-		String sql = "DELETE FROM pedidoitens "
+		String sql = "DELETE FROM geral.pedidoitens "
 				+ "WHERE idpedidoitem = ?";
 		
 		try {
@@ -111,9 +111,9 @@ public class OrderItemDao {
 				+ "Produto.vlcusto, "
 				+ "Produto.vlvenda, "
 				+ "Produto.categoria "
-				+ "FROM pedidoitens "
-				+ "INNER JOIN Pedido ON PedidoItens.idpedido = Pedido.idpedido "
-				+ "INNER JOIN Produto ON PedidoItens.idproduto = Produto.idproduto "
+				+ "FROM geral.pedidoitens "
+				+ "INNER JOIN geral.Pedido ON PedidoItens.idpedido = Pedido.idpedido "
+				+ "INNER JOIN geral.Produto ON PedidoItens.idproduto = Produto.idproduto "
 				+ "WHERE idpedido = ?";
 		List<OrderItem> orderItens = new ArrayList<>();
 		
@@ -158,40 +158,5 @@ public class OrderItemDao {
 		}
 		return orderItens; 
 	}
-	
-	
-	/*
-	public List<OrderItem> findByOrder(Integer id) {
-		String sql = "SELECT * FROM pedidoitens "
-				+ "WHERE idpedido = ?";
-		List<OrderItem> orderItens = new ArrayList<>();
-		
-		try {
-			PreparedStatement ps = connection.prepareStatement(sql);
-			ps.setInt(1, id);
-			ResultSet rs = ps.executeQuery();
-			
-			while(rs.next()) {
-				OrderItem orderItem = new OrderItem(rs.getInt("idpedidoitem"),
-						rs.getDouble("vlunitario"),
-						rs.getInt("qtproduto"),
-						rs.getDouble("vldesconto"),
-						rs.getInt("idpedido"),
-						rs.getInt("idproduto"));
-				orderItens.add(orderItem);
-			}
-			
-			rs.close();
-			ps.close();
-			connection.close();	
-		}
-		
-		catch (SQLException e) {
-			System.out.println("Erro ao buscar o produto! ");
-			e.printStackTrace();
-		}
-		return null;
-	}
-	*/
 	
 }

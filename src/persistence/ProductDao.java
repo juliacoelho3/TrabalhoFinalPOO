@@ -19,7 +19,7 @@ public class ProductDao {
 	}
 
 	public Product findById(Integer id) {
-		String sql = "SELECT * FROM produto "
+		String sql = "SELECT * FROM geral.produto "
 				+ "WHERE idproduto = ?";
 		
 		try {
@@ -49,7 +49,7 @@ public class ProductDao {
 	}
 
 	public List<Product> findAll() {
-		String sql = "SELECT * FROM produto";
+		String sql = "SELECT * FROM geral.produto";
 		List<Product> products = new ArrayList<>();
 		
 		try {
