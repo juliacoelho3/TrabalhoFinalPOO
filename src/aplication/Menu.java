@@ -120,6 +120,7 @@ public class Menu {
 					
 					OrderItemDao orderItemDao = new OrderItemDao();
 					orderItemDao.insert(orderItem);
+					confirmaProduto = 'N';
 				}
 				
 			}
