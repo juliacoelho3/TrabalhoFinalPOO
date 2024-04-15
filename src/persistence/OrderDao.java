@@ -38,11 +38,13 @@ public class OrderDao {
 			ps.setString(4, order.getObservation());
 			ps.setInt(5, order.getClient().getId());
 			
+			
+			ps.execute();
+			
 			ResultSet rs = ps.getGeneratedKeys();
 			int id = rs.getInt(1);
 			order.setId(id);
 			
-			ps.execute();
 			ps.close();
 			connection.close();
 		}
