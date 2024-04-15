@@ -38,13 +38,21 @@ public class OrderDao {
 			ps.setString(4, order.getObservation());
 			ps.setInt(5, order.getClient().getId());
 			
-			
-			ps.executeUpdate();
-			
-			ResultSet rs = ps.getGeneratedKeys();
-			int id = rs.getInt(1);
-			order.setId(id);
-			
+		    int rowsAffected = ps.executeUpdate();
+
+		    if (rowsAffected == 0) {
+		        throw new SQLException("Falha ao inserir o pedido, nenhum registro foi afetado.");
+		    }
+
+		    try (ResultSet rs = ps.getGeneratedKeys()) {
+		        if (rs.next()) {
+		            int id = rs.getInt(1);
+		            order.setId(id);
+		        } else {
+		            throw new SQLException("Falha ao recuperar o ID do pedido inserido.");
+		        }
+		    }
+		    
 			ps.close();
 			connection.close();
 		}
