@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Statement;
 
 import db.ConnectionFactory;
 import entities.Client;
@@ -30,12 +31,15 @@ public class OrderDao {
 				+ "(?, ?, ?, ?, ?)";
 		
 		try {
-			PreparedStatement ps = connection.prepareStatement(sql);
+			PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			ps.setDate(1, new java.sql.Date(order.getIssueDate().getTime()));
 			ps.setDate(2, new java.sql.Date(order.getDeliveryDate().getTime()));
 			ps.setDouble(3, order.getTotalValue());
 			ps.setString(4, order.getObservation());
 			ps.setInt(5, order.getClient().getId());
+			
+			ResultSet rs = ps.getGeneratedKeys();
+			order.setId(rs.getInt(1));
 			
 			ps.execute();
 			ps.close();
