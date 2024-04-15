@@ -22,18 +22,17 @@ public class OrderItemDao {
 	
 	public void insert(OrderItem orderItem) {
 		String sql = "INSERT INTO geral.pedidoitens "
-				+ "(idpedidoitem, vlunitario, qtproduto, vldesconto, idpedido, idproduto) "
+				+ "(vlunitario, qtproduto, vldesconto, idpedido, idproduto) "
 				+ "VALUES "
 				+ "(?, ?, ?, ?, ?)";
 		
 		try {
 			PreparedStatement ps = connection.prepareStatement(sql);
-			ps.setInt(1, orderItem.getId());
-			ps.setDouble(2, orderItem.getUnitValue());
-			ps.setInt(3, orderItem.getQuantity());
-			ps.setDouble(4, orderItem.getDescountValue());
-			ps.setInt(5, orderItem.getOrder().getId());
-			ps.setInt(6, orderItem.getProduct().getId());
+			ps.setDouble(1, orderItem.getUnitValue());
+			ps.setInt(2, orderItem.getQuantity());
+			ps.setDouble(3, orderItem.getDescountValue());
+			ps.setInt(4, orderItem.getOrder().getId());
+			ps.setInt(5, orderItem.getProduct().getId());
 			
 			ps.execute();
 			ps.close();
@@ -48,8 +47,7 @@ public class OrderItemDao {
 	
 	public void update(OrderItem orderItem) {
 		String sql = "UPDATE geral.pedidoitens "
-				+ "SET idpedidoitem = ?, "
-				+ "vlunitario = ?, "
+				+ "SET vlunitario = ?, "
 				+ "qtproduto = ?, "
 				+ "vldesconto = ?, "
 				+ "idpedido = ?, "
@@ -57,12 +55,11 @@ public class OrderItemDao {
 		
 		try {
 			PreparedStatement ps = connection.prepareStatement(sql);
-			ps.setInt(1, orderItem.getId());
-			ps.setDouble(2, orderItem.getUnitValue());
-			ps.setInt(3, orderItem.getQuantity());
-			ps.setDouble(4, orderItem.getDescountValue());
-			ps.setInt(5, orderItem.getOrder().getId());
-			ps.setInt(6, orderItem.getProduct().getId());
+			ps.setDouble(1, orderItem.getUnitValue());
+			ps.setInt(2, orderItem.getQuantity());
+			ps.setDouble(3, orderItem.getDescountValue());
+			ps.setInt(4, orderItem.getOrder().getId());
+			ps.setInt(5, orderItem.getProduct().getId());
 			
 			ps.execute();
 			ps.close();
