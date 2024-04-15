@@ -41,7 +41,7 @@ public class OrderDao {
 		    int rowsAffected = ps.executeUpdate();
 
 		    if (rowsAffected == 0) {
-		        throw new SQLException("Falha ao inserir o pedido, nenhum registro foi afetado.");
+		        throw new SQLException("Erro ao inserir o pedido, nenhum registro foi afetado.");
 		    }
 
 		    try (ResultSet rs = ps.getGeneratedKeys()) {
@@ -49,7 +49,7 @@ public class OrderDao {
 		            int id = rs.getInt(1);
 		            order.setId(id);
 		        } else {
-		            throw new SQLException("Falha ao recuperar o ID do pedido inserido.");
+		            throw new SQLException("Erro ao recuperar o ID do pedido inserido.");
 		        }
 		    }
 		    

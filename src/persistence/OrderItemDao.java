@@ -21,7 +21,7 @@ public class OrderItemDao {
 	}
 	
 	public void insert(OrderItem orderItem) {
-		String sql = "INSERT INTO geral.pedidoitens "
+		String sql = "INSERT INTO geral.pedidositens "
 				+ "(vlunitario, qtproduto, vldesconto, idpedido, idproduto) "
 				+ "VALUES "
 				+ "(?, ?, ?, ?, ?)";
@@ -46,7 +46,7 @@ public class OrderItemDao {
 	}
 	
 	public void update(OrderItem orderItem) {
-		String sql = "UPDATE geral.pedidoitens "
+		String sql = "UPDATE geral.pedidositens "
 				+ "SET vlunitario = ?, "
 				+ "qtproduto = ?, "
 				+ "vldesconto = ?, "
@@ -73,7 +73,7 @@ public class OrderItemDao {
 	}
 	
 	public void delete(Integer id) {
-		String sql = "DELETE FROM geral.pedidoitens "
+		String sql = "DELETE FROM geral.pedidositens "
 				+ "WHERE idpedidoitem = ?";
 		
 		try {
@@ -99,18 +99,18 @@ public class OrderItemDao {
 				+ "Pedido.valortotal, "
 				+ "Pedido.observacao, "
 				+ "Pedido.idcliente, "
-				+ "PedidoItens.idpedidoitem, "
-				+ "PedidoItens.vlunitario, "
-				+ "PedidoItens.qtproduto, "
-				+ "PedidoItens.vldesconto, "
+				+ "PedidosItens.idpedidoitem, "
+				+ "PedidosItens.vlunitario, "
+				+ "PedidosItens.qtproduto, "
+				+ "PedidosItens.vldesconto, "
 				+ "Produto.idproduto, "
 				+ "Produto.descricao, "
 				+ "Produto.vlcusto, "
 				+ "Produto.vlvenda, "
 				+ "Produto.categoria "
-				+ "FROM geral.pedidoitens "
-				+ "INNER JOIN geral.Pedido ON PedidoItens.idpedido = Pedido.idpedido "
-				+ "INNER JOIN geral.Produto ON PedidoItens.idproduto = Produto.idproduto "
+				+ "FROM geral.pedidositens "
+				+ "INNER JOIN geral.Pedido ON PedidosItens.idpedido = Pedido.idpedido "
+				+ "INNER JOIN geral.Produto ON PedidosItens.idproduto = Produto.idproduto "
 				+ "WHERE idpedido = ?";
 		List<OrderItem> orderItens = new ArrayList<>();
 		
@@ -134,10 +134,10 @@ public class OrderItemDao {
 						rs.getString("Pedido.observacao"));
 				
 				
-				OrderItem orderItem = new OrderItem(rs.getInt("PedidoItens.idpedidoitem"),
-						rs.getDouble("PedidoItens.vlunitario"),
-						rs.getInt("PedidoItens.qtproduto"),
-						rs.getDouble("PedidoItens.vldesconto"),
+				OrderItem orderItem = new OrderItem(rs.getInt("PedidosItens.idpedidoitem"),
+						rs.getDouble("PedidosItens.vlunitario"),
+						rs.getInt("PedidosItens.qtproduto"),
+						rs.getDouble("PedidosItens.vldesconto"),
 						order,
 						product);
 				
