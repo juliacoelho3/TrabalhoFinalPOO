@@ -105,7 +105,7 @@ public class Menu {
 				+ "? (S/N): ");
 				confirmaProduto = sc.next().charAt(0);
 				
-				if(confirmaProduto == 'S') {
+				if(confirmaProduto != 'S' || confirmaProduto != 's') {
 					System.out.print("Informe a quantidade do produto: ");
 					Integer quantity = sc.nextInt();
 					System.out.print("Informe o valor de desconto: ");
@@ -121,6 +121,7 @@ public class Menu {
 					OrderItemDao orderItemDao = new OrderItemDao();
 					orderItemDao.insert(orderItem);
 				}
+				
 			}
 			
 			System.out.print("Deseja adicionar um novo produto? (S/N): ");
