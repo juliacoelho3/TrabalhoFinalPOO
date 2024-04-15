@@ -39,7 +39,8 @@ public class OrderDao {
 			ps.setInt(5, order.getClient().getId());
 			
 			ResultSet rs = ps.getGeneratedKeys();
-			order.setId(rs.getInt(1));
+			int id = rs.getInt(1);
+			order.setId(id);
 			
 			ps.execute();
 			ps.close();
