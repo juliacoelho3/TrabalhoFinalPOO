@@ -122,7 +122,7 @@ public class Menu {
 					orderItemDao.insert(orderItem);
 					confirmaProduto = 'N';
 				}
-				
+				confirmaProduto = 'S';
 			}
 			
 			System.out.print("Deseja adicionar um novo produto? (S/N): ");
