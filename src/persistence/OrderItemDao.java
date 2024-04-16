@@ -111,7 +111,7 @@ public class OrderItemDao {
 				+ "FROM geral.pedidositens "
 				+ "INNER JOIN geral.Pedido ON PedidosItens.idpedido = Pedido.idpedido "
 				+ "INNER JOIN geral.Produto ON PedidosItens.idproduto = Produto.idproduto "
-				+ "WHERE idpedido = ?";
+				+ "WHERE Pedido.idpedido = ?";
 		List<OrderItem> orderItens = new ArrayList<>();
 		
 		try {
@@ -121,23 +121,23 @@ public class OrderItemDao {
 			
 			while(rs.next()) {
 				
-				Product product = new Product(rs.getInt("Produto.idproduto"),
-						rs.getString("Produto.descricao"),
-						rs.getDouble("Produto.vlcusto"),
-						rs.getDouble("Produto.vlvenda"),
-						rs.getString("Produto.categoria"));
+				Product product = new Product(rs.getInt("idproduto"),
+						rs.getString("descricao"),
+						rs.getDouble("vlcusto"),
+						rs.getDouble("vlvenda"),
+						rs.getString("categoria"));
 				
-				Order order = new Order(rs.getInt("Pedido.idpedido"),
-						rs.getDate("Pedido.dtemissao"),
-						rs.getDate("Pedido.dtentrega"),
-						rs.getDouble("Pedido.valortotal"),
-						rs.getString("Pedido.observacao"));
+				Order order = new Order(rs.getInt("idpedido"),
+						rs.getDate("dtemissao"),
+						rs.getDate("dtentrega"),
+						rs.getDouble("valortotal"),
+						rs.getString("observacao"));
 				
 				
-				OrderItem orderItem = new OrderItem(rs.getInt("PedidosItens.idpedidoitem"),
-						rs.getDouble("PedidosItens.vlunitario"),
-						rs.getInt("PedidosItens.qtproduto"),
-						rs.getDouble("PedidosItens.vldesconto"),
+				OrderItem orderItem = new OrderItem(rs.getInt("idpedidoitem"),
+						rs.getDouble("vlunitario"),
+						rs.getInt("qtproduto"),
+						rs.getDouble("vldesconto"),
 						order,
 						product);
 				
@@ -150,7 +150,7 @@ public class OrderItemDao {
 		}
 		
 		catch (SQLException e) {
-			System.out.println("Erro ao buscar o produto! ");
+			System.out.println("Erro ao buscar o pedido item! ");
 			e.printStackTrace();
 		}
 		return orderItens; 

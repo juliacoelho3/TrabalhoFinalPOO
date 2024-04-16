@@ -91,13 +91,14 @@ public class OrderItem {
 		return Objects.equals(id, other.id);
 	}
 	
-	public void update(OrderItem orderItem) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void delete(Integer id) {
-		// TODO Auto-generated method stub
-		
+	public String toString() {
+		return "Descrição do produto: "
+				+ product.getDescription()
+				+ " | Valor unitário: "
+				+ unitValue
+				+ " | Quantidade: "
+				+ quantity
+				+ " | Valor de desconto: "
+				+ descountValue;
 	}
 }

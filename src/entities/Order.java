@@ -1,6 +1,8 @@
 package entities;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 public class Order {
@@ -12,6 +14,7 @@ public class Order {
 	private String observation;
 	
 	private Client client;
+	private List<OrderItem> items = new ArrayList<>();
 
 	public Order() {
 	}
@@ -81,6 +84,14 @@ public class Order {
 	
 	public void setClient(Client client) {
 		this.client = client;
+	}
+	
+	public List<OrderItem> getItems() {
+		return items;
+	}
+	
+	public void addItem(OrderItem orderItem) {
+		items.add(orderItem);
 	}
 
 	@Override

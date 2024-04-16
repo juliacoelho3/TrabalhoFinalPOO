@@ -53,9 +53,15 @@ public class Menu {
 		System.out.println("###############################"
 				+ "\n#       LISTA DE PEDIDOS      #"
 				+ "\n###############################");
-		OrderDao dao = new OrderDao();
-		for (Order o : dao.findAll()) {
+		OrderDao orderDao = new OrderDao();
+		OrderItemDao orderItemDao = new OrderItemDao();
+		
+		for (Order o : orderDao.findAll()) {
 			System.out.println(o);
+			for (OrderItem oi : orderItemDao.findByOrder(o.getId())) {
+				System.out.println(oi);
+				
+			}
 		}
 	}
 	
@@ -96,13 +102,15 @@ public class Menu {
 			System.out.print("Informe o código do produto: ");
 			Integer productId = sc.nextInt();
 			
-			while(confirmaProduto != 'S' || confirmaProduto != 's') {
+			while(confirmaProduto != 'S' && confirmaProduto != 's') {
 				ProductDao productDao = new ProductDao();
 				productDao.findById(productId);
+				
 				Product product = productDao.findById(productId);
 				System.out.print("Confirma a inclusão do produto "
 				+ product.getDescription()
 				+ "? (S/N): ");
+				
 				confirmaProduto = sc.next().charAt(0);
 				
 				if(confirmaProduto == 'S' || confirmaProduto == 's') {
@@ -120,9 +128,7 @@ public class Menu {
 					
 					OrderItemDao orderItemDao = new OrderItemDao();
 					orderItemDao.insert(orderItem);
-					confirmaProduto = 'N';
 				}
-				confirmaProduto = 'S';
 			}
 			
 			System.out.print("Deseja adicionar um novo produto? (S/N): ");
